@@ -1,0 +1,81 @@
+{% import "bootstrap/utils.html" as utils %}
+{% extends "base.html" %}
+{% block title %}Employees{% endblock %}
+{% block body %}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header" style="background-color: #ecf0f5;">
+    <h1>
+      Children
+      <small>children info</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="{{ url_for('home.homepage') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+      <li><a href="{{ url_for('home.admin_dashboard') }}">Dashboard</a></li>
+      <li class="active">Children</li>
+    </ol>
+    <br>
+  </section>
+
+  <!-- Main content -->
+  <section class="content container-fluid">
+    <div class="row">
+      <div class="col-xs-12">
+          <div class="box">
+          <!-- /.box-header -->
+          {% if children %}
+          <div class="box-body no-padding">
+              <div class="yellow">
+                  {{ utils.flashed_messages() }}
+              </div>
+            <table id="example2" class="table table-bordered table-hover">
+              <thead>
+              <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Parent</th>
+                <th>Edit</th>
+                <th>Delete</th>
+              </tr>
+              </thead>
+              <tbody>
+                {% for child in children %}
+                  <tr>
+                    <td> {{ child.name }} </td>
+                    <td> {{ child.age }} </td>
+                    <td> {{ child.parent.name }}</td>
+                    <td>
+                      <a style="color: #f39c12" href="{{ url_for('admin.edit_child', name=child.name) }}">
+                        <i class="fa fa-pencil"></i> Edit
+                      </a>
+                    </td>
+                    <td>
+                      <a style="color: #dd4b39" href="{{ url_for('admin.delete_child', name=child.name) }}">
+                        <i class="fa fa-trash"></i> Delete
+                      </a>
+                    </td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+          </div>
+        </div>
+          <!-- /.box-body -->
+          <div style="text-align: center">
+          {% else %}
+            <h3> No Children have been added. </h3>
+            <hr class="intro-divider">
+          {% endif %}
+          <a href="{{ url_for('admin.add_child') }}" class="btn btn-default btn-warning btn-lg">
+            <i class="fa fa-plus"></i>
+            Add Child
+          </a>
+        </div>
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </section>
+</div>
+{% endblock %}

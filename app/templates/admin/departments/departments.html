@@ -1,0 +1,89 @@
+{% import "bootstrap/utils.html" as utils %}
+{% extends "base.html" %}
+{% block title %}Departments{% endblock %}
+{% block body %}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header" style="background-color: #ecf0f5;">
+    <h1>
+      Department
+      <small>department info</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="{{ url_for('home.homepage') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+      <li><a href="{{ url_for('home.admin_dashboard') }}">Dashboard</a></li>
+      <li class="active">Departments</li>
+    </ol>
+    <br>
+  </section>
+
+  <!-- Main content -->
+  <section class="content container-fluid">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box">
+          {% if departments %}
+          <div class="box-body  no-padding">
+            <div class="green">
+                {{ utils.flashed_messages() }}
+            </div>
+            <table id="example2" class="table table-bordered table-hover">
+              <thead>
+              <tr>
+                <th>Name</th>
+                <th>Budget</th>
+                <th>Employee Count</th>
+                <th>Manager</th>
+                <th>Edit</th>
+                <th>Delete</th>
+              </tr>
+              </thead>
+              <tbody>
+                {% for department in departments %}
+                  <tr>
+                    <td> {{ department.dname }} </td>
+                    <td> {{ department.budget }} </td>
+                    <td>
+                      {% if department.employees %}
+                        {{ department.employees.count() }}
+                      {% else %}
+                        0
+                      {% endif %}
+                    </td>
+                    <td> {{ department.manager }}</td>
+                    <td>
+                      <a style="color: #00a65a" href="{{ url_for('admin.edit_department', id=department.id) }}">
+                        <i class="fa fa-pencil"></i> Edit
+                      </a>
+                    </td>
+                    <td>
+                      <a style="color: #dd4b39" href="{{ url_for('admin.delete_department', id=department.id) }}">
+                        <i class="fa fa-trash"></i> Delete
+                      </a>
+                    </td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- /.box-header -->
+        <div style="text-align: center">
+        {% else %}
+            <h3> No departments have been added. </h3>
+            <hr class="intro-divider">
+        {% endif %}
+          <a href="{{ url_for('admin.add_department') }}" class="btn btn-default btn-success btn-lg">
+            <i class="fa fa-plus"></i>
+            Add Department
+          </a>
+        </div>
+        <!-- /.box -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </section>
+ </div>
+  {% endblock %}

@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block body %}
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header" style="background-color: #ecf0f5;">
+      <h1>
+        Dashboard
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="{{ url_for('home.homepage') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Dashboard</li>
+      </ol>
+      <br>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-3">
+
+                <!-- Profile Image -->
+                <div class="box box-primary">
+                  <div class="box-body box-profile">
+                    <img class="profile-user-img img-responsive img-circle" src="{{ url_for('static', filename='dist/img/profile_silhouette.jpg') }}" alt="User profile picture">
+      
+                    <h3 class="profile-username text-center">{{ current_user.name}}</h3>
+                    {% if manage.dname %}
+                      <p class="text-muted text-center">Manager</p>
+                    {% endif %}
+                  </div>
+                  <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+              </div>
+              <!-- /.col -->
+
+            <div class="col-md-9">
+              <div class="box">
+                <div class="box-header">
+                  <h3 class="box-title">Employee Profile</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-hover">
+                        <tr>
+                          <th>enumber</th>
+                          <th>Salary</th>
+                          <th>Phone</th>
+                          <th>Department</th>
+                          <th>Manager</th>
+                          <th>Children</th>
+                        </tr>
+                        <tr>
+                          <td>{{ current_user.id }}</td>
+                          <td>{{ current_user.salary }}</td>
+                          <td>{{ current_user.phone }}</td>
+                          <td>
+                              {% if current_user.department %}
+                                {{ current_user.department.dname }}
+                              {% else %}
+                                -
+                              {% endif %}
+                            </td>
+                          <td>
+                            {% if manage.dname %}
+                              {{ manage.dname}}
+                            {% else %}
+                              -
+                            {% endif %}
+                          </td>
+                          <td>{% for child in current_user.children %}
+                                {{ child.name }}
+                              {% endfor %}
+                                <br>
+                          </td>
+                        </tr>
+                      </table>
+                </div>
+                <!-- /.box-body -->
+              </div>
+              <!-- /.box -->
+            </div>
+            <!-- /.ccol-md-9 -->
+          </div>
+          <!-- /.row -->
+        </section>
+        <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+{% endblock %}

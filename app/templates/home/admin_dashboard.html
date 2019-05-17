@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block body %}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header" style="background-color: #ecf0f5;">
+    <h1>
+      Dashboard
+      <small>Control panel</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="{{ url_for('home.homepage') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+      <li class="active">Dashboard</li>
+    </ol>
+    <br>
+  </section>
+
+  <!-- Main content -->
+  <section class="content container-fluid">
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+      <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-aqua">
+          <div class="inner">
+            <h3>{{ employees_no }}</h3>
+
+            <p>Employees</p>
+          </div>
+          <div class="icon">
+            <i class="fa fa-users"></i>
+          </div>
+          <a href="{{ url_for('admin.list_employees') }}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
+      <!-- ./col -->
+      <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-green">
+          <div class="inner">
+            <h3>{{ departments_no }}</h3>
+
+            <p>Departments</p>
+          </div>
+          <div class="icon">
+            <i class="fa fa-bank"></i>
+          </div>
+          <a href="{{ url_for('admin.list_departments') }}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
+      <!-- ./col -->
+      <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-yellow">
+          <div class="inner">
+            <h3>{{ children_no }}</h3>
+
+            <p>Chidren</p>
+          </div>
+          <div class="icon">
+            <i class="fa fa-child"></i>
+          </div>
+          <a href="{{ url_for('admin.list_children') }}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
+      <!-- ./col -->
+    </div>
+
+    <!-- /.row (main row) -->
+
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+{% endblock %}
